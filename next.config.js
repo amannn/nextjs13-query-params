@@ -10,6 +10,10 @@ const nextConfig = {
         hostname: 'images.dog.ceo'
       }
     ]
+  },
+  webpack(config) {
+    config.resolve.alias['next-intl/config'] = require.resolve('./i18n.tsx');
+    return config;
   }
 };
 

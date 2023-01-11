@@ -1,5 +1,7 @@
 import Image from 'next/image';
+import {useTranslations} from 'next-intl';
 import BreedSelect from './BreedSelect';
+import {use} from 'react';
 
 // Since we're using query parameters that are only known at request
 // time, make sure we're using dynamic rendering (i.e. no SSG).
@@ -11,7 +13,9 @@ type Props = {
   };
 };
 
-export default async function Index({searchParams}: Props) {
+export default function Index({searchParams}: Props) {
+  const t = useTranslations();
+
   // Apply a default if the query param is not set
   const breed = searchParams?.breed ?? 'corgi';
 
@@ -24,14 +28,14 @@ export default async function Index({searchParams}: Props) {
 
   return (
     <div>
-      <BreedSelect value={breed} />
+      <BreedSelect title={t('title')} value={breed} />
       <Image
         priority
         width={400}
         height={400}
         style={{objectFit: 'contain'}}
-        alt="Dog"
-        src={await getBreedImage()}
+        alt={t('breedName', {breed})}
+        src={use(getBreedImage())}
         key="breed"
       />
     </div>
