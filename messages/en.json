@@ -1,4 +1,4 @@
 {
-  "title": "Breed selection",
+  "title": "Select breed",
   "breedName": "{breed, select, corgi {Corgi} labrador {Labrador} husky {Husky} other {Unknown}}"
 }
