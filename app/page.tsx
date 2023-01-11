@@ -1,6 +1,10 @@
 import Image from 'next/image';
 import BreedSelect from './BreedSelect';
 
+// Since we're using query parameters that are only known at request
+// time, make sure we're using dynamic rendering (i.e. no SSG).
+export const dynamic = 'force-dynamic';
+
 type Props = {
   searchParams?: {
     breed?: string;
@@ -8,6 +12,7 @@ type Props = {
 };
 
 export default async function Index({searchParams}: Props) {
+  // Apply a default if the query param is not set
   const breed = searchParams?.breed ?? 'corgi';
 
   async function getBreedImage() {
@@ -20,16 +25,14 @@ export default async function Index({searchParams}: Props) {
   return (
     <div>
       <BreedSelect value={breed} />
-      {breed && (
-        <Image
-          priority
-          width={400}
-          height={400}
-          style={{objectFit: 'contain'}}
-          alt="Dog"
-          src={await getBreedImage()}
-        />
-      )}
+      <Image
+        priority
+        width={400}
+        height={400}
+        style={{objectFit: 'contain'}}
+        alt="Dog"
+        src={await getBreedImage()}
+      />
     </div>
   );
 }
