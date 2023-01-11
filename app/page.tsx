@@ -32,6 +32,7 @@ export default async function Index({searchParams}: Props) {
         style={{objectFit: 'contain'}}
         alt="Dog"
         src={await getBreedImage()}
+        key="breed"
       />
     </div>
   );
